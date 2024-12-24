@@ -1,29 +1,40 @@
-import { Game } from "./lib/game.js";
-import { Scene } from "./lib/scene.js";
+// import { Game } from "./lib/game.js";
 
-/** @type {HTMLButtonElement} */
-const stopStart = document.getElementById("stop-start");
+// import { PlayActive } from "./scenes/play-active.js";
 
-stopStart.textContent = "Start";
-stopStart.addEventListener("click", () => {
-  if (stopStart.textContent === "Start") {
-    stopStart.textContent = "Stop";
-  }
-})
+import { setupGame } from "./monolith.js";
 
-let animationHandle = null;
+async function main() {
+  const game = await setupGame();
 
-function start(game) {
-  animationHandle = window.requestAnimationFrame(game);
+  game.loop();
 }
 
-function stop() {
-  window.cancelAnimationFrame(animationHandle);
-}
+main();
 
 
-function game() {
+// const game = new Game();
 
-}
+// game.addScene(new PlayActive());
+// game.setScene("play_active");
 
+// setupStartStopButton();
+
+
+// function setupStartStopButton() {
+//   /** @type {HTMLButtonElement} */
+//   const stopStart = document.getElementById("stop-start");
+
+//   stopStart.textContent = "Start";
+//   stopStart.addEventListener("click", () => {
+//     console.log(stopStart.textContent)
+//     if (stopStart.textContent === "Start") {
+//       stopStart.textContent = "Stop";
+//       game.loop();
+//     } else {
+//       stopStart.textContent = "Start";
+//       game.cancelLoop();
+//     }
+//   });
+// }
 
