@@ -44,8 +44,6 @@ async function useDolphin() {
         } else {
           currentFrame = 0;
         }
-        console.log(currentFrame)
-
         cameraFrameCount = 0;
       } else {
         cameraFrameCount += 1;
@@ -60,7 +58,7 @@ async function useDolphin() {
       const destY = dolphinY;
       const destWidth = sourceWidth * 4;
       const destHeight = sourceHeight * 4;
-      
+
       ctx.drawImage(
         dolphin,
         sourceX,
@@ -107,6 +105,20 @@ function camera() {
     game.viewport.width,
     game.viewport.height
   );
+
+  const grad = ctx.createLinearGradient(0,0, 0, 280);
+
+  grad.addColorStop(0, "lightblue");
+  grad.addColorStop(1, "cyan");
+  
+  ctx.fillStyle = grad;
+  ctx.fillRect(
+    0,
+    0,
+    game.viewport.width,
+    game.viewport.height
+  );
+  ctx.fillStyle = "black";
 
   for (let i = 0; i < inViewObstacles.length; i++) {
     const obstacle = inViewObstacles[i];
