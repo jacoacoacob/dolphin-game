@@ -1,44 +1,22 @@
 import { Game } from "../lib/game.js";
-import { Scene } from "../lib/scene.js";
+import { PlayActiveScene } from "./play-active.scene.js";
 
-import { DolphinSprite } from "./dolphin.sprite.js";
+async function main() {
+  
+  const playActive = new PlayActiveScene();
+  
+  const game = new Game();
+  
+  game.scenes.addScene(playActive);
+  
+  await game.setCurrentScene(playActive);
 
-const game = new Game();
+  game.loop();
+}  
 
+main();
 
-class StartScreen extends Scene {
-  constructor() {
-    super("start_screen");
-  }
-
-  /**
-   * 
-   * @param {Game} game 
-   */
-  setup(game) {
-    game.sprites.addSprite(new DolphinSprite())
-  }
-
-  /**
-   * 
-   * @param {Game} game 
-   */
-  update(game) {
-
-  }
-}
-
-const startScreen = new StartScreen();
-
-game.scenes.addScene(startScreen);
-
-game.setCurrentScene(startScreen);
-
-game.loop();
-
-
-
-// import { setupGame } from "./monolith.js";
+// import { setupGame } from "../monolith.js";
 
 // async function main() {
 //   const game = await setupGame();
