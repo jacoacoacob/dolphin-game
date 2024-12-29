@@ -21,14 +21,24 @@ export class PlayActiveScene extends Scene {
 
     await Promise.all([
       game.assets.loadImage("dolphin-sheet",  "../assets/dolphin-baby/16bit-dolphin-baby-Sheet.png"),
+      game.assets.loadImage("dolphin-sheet",  "../assets/dolphin-baby/16bit-dolphin-baby-Sheet.png"),
       game.assets.loadImage("rock", "../assets/tiles/tiles-rock.png"),
     ]);
 
-    game.sprites.addSprite(new RockSprite(40, 300));
-    game.sprites.addSprite(new RockSprite(100, 300));
-    game.sprites.addSprite(new RockSprite(160, 300));
+    game.sprites.addSprite(new RockSprite(96, 300 / 4));
+    game.sprites.addSprite(new RockSprite(128, 300 / 4));
+    game.sprites.addSprite(new RockSprite(160, 300 / 4));
+    game.sprites.addSprite(new RockSprite(192, 300 / 4));
+    game.sprites.addSprite(new RockSprite(192, 268 / 4));
+    game.sprites.addSprite(new RockSprite(192, 236 / 4));
+    game.sprites.addSprite(new RockSprite(192, 204 / 4));
+    game.sprites.addSprite(new RockSprite(160, 204 / 4));
+    game.sprites.addSprite(new RockSprite(128, 204 / 4));
+    game.sprites.addSprite(new RockSprite(96, 204 / 4));
+    game.sprites.addSprite(new RockSprite(96, 236 / 4));
+    game.sprites.addSprite(new RockSprite(96, 268 / 4));
 
-    game.sprites.addSprite(new DolphinSprite());
+    game.sprites.addSprite(new DolphinSprite(130, 60));
     
   }
 

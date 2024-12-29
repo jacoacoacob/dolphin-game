@@ -3,10 +3,10 @@ import { PlayActiveScene } from "./play-active.scene.js";
 
 async function main() {
   
-  const playActive = new PlayActiveScene();
-  
   const game = new Game();
   
+  const playActive = new PlayActiveScene();
+
   game.scenes.addScene(playActive);
   
   await game.setCurrentScene(playActive);

@@ -7,13 +7,18 @@ export const DOLPHIN_SPRITE_ID = "dolphin";
 // It's a singleton
 export class DolphinSprite extends Sprite {
   
-  constructor() {
+  /**
+   * 
+   * @param {number} x 
+   * @param {number} y 
+   */
+  constructor(x, y) {
 
     super({
       id: DOLPHIN_SPRITE_ID,
       imageName: "dolphin-sheet",
-      x: 10,
-      y: 10,
+      x,
+      y,
       zIndex: 10,
       isCollidable: true,
       isMovable: true,
