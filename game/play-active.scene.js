@@ -1,6 +1,7 @@
 import { Game } from "../lib/game.js";
 import { Scene } from "../lib/scene.js";
 import { DOLPHIN_SPRITE_ID, DolphinSprite } from "./dolphin.sprite.js";
+import { PlayActiveSceneControls } from "./play-active.scene-controls.js";
 import { RockSprite } from "./rock.sprite.js";
 
 export class PlayActiveScene extends Scene {
@@ -9,6 +10,8 @@ export class PlayActiveScene extends Scene {
 
     super("play_active");
 
+    this.controls = new PlayActiveSceneControls();
+
   }
 
   /**
@@ -16,8 +19,6 @@ export class PlayActiveScene extends Scene {
    * @param {Game} game 
    */
   async setup(game) {
-   
-    game.camera.dx = 0.05;
 
     await Promise.all([
       game.assets.loadImage("dolphin-sheet",  "../assets/dolphin-baby/16bit-dolphin-baby-Sheet.png"),
@@ -48,12 +49,45 @@ export class PlayActiveScene extends Scene {
    */
   update(game) {
 
-    game.camera.update(game);
+
+
+    if (this.controls.moveCameraUp(game)) {
+      game.camera.dy = -0.5 * game.camera.scale;
+    } else if (this.controls.moveCameraDown(game)) {
+      game.camera.dy = 0.5 * game.camera.scale;
+    } else {
+      game.camera.dy = 0;
+    }
+
+    if (this.controls.moveCameraLeft(game)) {
+      game.camera.dx = -0.5 * game.camera.scale;
+    } else if (this.controls.moveCameraRight(game)) {
+      game.camera.dx = 0.5 * game.camera.scale;
+    } else {
+      game.camera.dx = 0;
+    }
+
 
     const dolphin = game.sprites.select(DOLPHIN_SPRITE_ID);
 
-    dolphin.update(game);
+    if (this.controls.moveLeft(game)) {
+      dolphin.dx = 0.5 * game.camera.scale;
+    } else if (this.controls.moveRight(game)) {
+      dolphin.dx = -0.5 * game.camera.scale;
+    } else {
+      dolphin.dx = 0;
+    }
 
+    if (this.controls.moveUp(game)) {
+      dolphin.dy = 0.5 * game.camera.scale;
+    } else if (this.controls.moveDown(game)) {
+      dolphin.dy = -0.5 * game.camera.scale;
+    } else {
+      dolphin.dy = 0;
+    }
+
+    dolphin.update(game);
+    game.camera.update(game);
   }
 
 

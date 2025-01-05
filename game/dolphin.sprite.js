@@ -36,6 +36,9 @@ export class DolphinSprite extends Sprite {
    */
   update(game) {
 
+    this.x += this.dx;
+    this.y += this.dy;
+
     if (game.clock.time - this.currentFrameStartTime > seconds(0.1)) {
     
       if (this.currentFrame < 3) {
