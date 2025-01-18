@@ -20,9 +20,9 @@ export class PlayActiveScene extends Scene {
   async setup(game) {
 
     await Promise.all([
-      game.assets.loadImage("dolphin-sheet",  "../assets/dolphin-baby/16bit-dolphin-baby-Sheet.png"),
-      game.assets.loadImage("rock", "../assets/tiles/tiles-rock.png"),
-      game.assets.loadImage("sand-coral", "../assets/tiles/tiles-sand-coral.png"),
+      game.assets.loadImage("dolphin-sheet",  "dolphin-baby/16bit-dolphin-baby-Sheet.png"),
+      game.assets.loadImage("rock", "tiles/tiles-rock.png"),
+      game.assets.loadImage("sand-coral", "tiles/tiles-sand-coral.png"),
     ]);
 
     Array.from(Array(50)).forEach((_, index) => {
