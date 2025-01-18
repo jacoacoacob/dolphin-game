@@ -41,13 +41,6 @@ export class RockSprite extends Sprite {
       this.height(game),
     );
 
-
-    // const pattern = game.graphics.ctx.createPattern(image, "repeat");
-    // game.graphics.ctx.fillStyle = pattern;
-
-    // game.graphics.ctx.fillRect(x, y, width, height);
-
-
     game.graphics.ctx.drawImage(
       // the image to draw
       image,

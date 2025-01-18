@@ -90,6 +90,8 @@ export class SwimmingState extends SpriteState {
    * @param {DolphinSprite} dolphin 
    */
   update(game, dolphin) {
+    dolphin.updatePosition();
+
     if (game.inputs.spacebar.isPressed) {
       return "jumping";
     }
@@ -102,8 +104,6 @@ export class SwimmingState extends SpriteState {
       }
       this.currentFrameStartTime = game.clock.time;
     }
-
-    dolphin.updatePosition();
   }
 
   /**

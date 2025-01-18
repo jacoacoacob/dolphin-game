@@ -1,16 +1,16 @@
 import { Game } from "../lib/game.js";
 import { Scene } from "../lib/scene.js";
 import { DOLPHIN_SPRITE_ID, DolphinSprite } from "./dolphin.sprite.js";
-import { PlayActiveSceneControls } from "./play-active.scene-controls.js";
 import { RockSprite } from "./rock.sprite.js";
 import { SeaFloorSprite } from "./sea-floor.sprite.js";
+import { BackdropSprite } from "./backdrop.sprite.js";
 
+const ROCKS = [0,0,1,0,1,1,1,0,0,1,0,1,1,1,0,2,0,1,2,1,0,1];
+  
 export class PlayActiveScene extends Scene {
 
   constructor() {
     super("play_active");
-
-    this.controls = new PlayActiveSceneControls();
   }
 
   /**
@@ -25,22 +25,33 @@ export class PlayActiveScene extends Scene {
       game.assets.loadImage("sand-coral", "tiles/tiles-sand-coral.png"),
     ]);
 
-    Array.from(Array(50)).forEach((_, index) => {
+    game.sprites.addSprite(new BackdropSprite(game, 300, 100));
+
+    Array.from(Array(ROCKS.length)).forEach((_, index) => {
       game.sprites.addSprite(new SeaFloorSprite(
         index * 100,
         124,
-        100,
+        100, 
         10
       ));
     });
+  
+    ROCKS.forEach((value, index) => {
+      
+      if (value === 1) {
+        game.sprites.addSprite(new RockSprite(index * 100, 90, 10, 40));
+      }
 
-    game.sprites.addSprite(new RockSprite(210, 90, 10, 40))
-    game.sprites.addSprite(new RockSprite(350, 90, 10, 40))
-    game.sprites.addSprite(new RockSprite(490, 90, 10, 40))
+      if (value === 2) {
+        game.sprites.addSprite(new RockSprite(index * 100, 90, 10, 40));
+        game.sprites.addSprite(new RockSprite(index * 100 + 20, 90, 10, 40));
+      }
+
+    });
 
     game.sprites.addSprite(new DolphinSprite(20, 100));
 
-    const SPEED = 0.75;
+    const SPEED = 0.85;
 
     game.sprites.select("dolphin").dx = SPEED;
 
