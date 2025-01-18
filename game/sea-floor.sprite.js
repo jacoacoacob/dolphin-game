@@ -1,52 +1,33 @@
 import { Game } from "../lib/game.js";
 import { Sprite } from "../lib/sprite.js";
 
-export class RockSprite extends Sprite {
+export class SeaFloorSprite extends Sprite {
 
-  /**
-   * 
-   * @param {number} x 
-   * @param {number} y 
-   * @param {number} width
-   * @param {number} height
-   */
   constructor(x, y, width, height) {
-
     super({
-      kind: "rock",
-      imageName: "rock",
+      kind: "sea-floor",
+      imageName: "sand-coral",
       x,
       y,
       width,
       height,
-      zIndex: 20,
-      isCollidable: true,
-      isMovable: false,
     });
-
   }
-
+  
   /**
    * 
    * @param {Game} game 
    */
   paint(game) {
 
-    const image = game.assets.getImage(this);
-
     const { x, y, width, height } = game.camera.transform(
       this.x,
       this.y,
       this.width(game),
-      this.height(game),
+      this.height(game)
     );
 
-
-    // const pattern = game.graphics.ctx.createPattern(image, "repeat");
-    // game.graphics.ctx.fillStyle = pattern;
-
-    // game.graphics.ctx.fillRect(x, y, width, height);
-
+    const image = game.assets.getImage(this);
 
     game.graphics.ctx.drawImage(
       // the image to draw
@@ -70,5 +51,4 @@ export class RockSprite extends Sprite {
     );
 
   }
-
 }

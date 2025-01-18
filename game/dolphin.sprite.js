@@ -1,11 +1,20 @@
 import { Game } from "../lib/game.js";
 import { Sprite } from "../lib/sprite.js";
-import { seconds } from "../lib/time.js";
+import { secondsToMillis } from "../lib/time.js";
+import { JumpingState, SwimmingState } from "./dolphin.state.js";
 
 export const DOLPHIN_SPRITE_ID = "dolphin";
 
 // It's a singleton
 export class DolphinSprite extends Sprite {
+
+  states = {
+    swimming: new SwimmingState(),
+    jumping: new JumpingState(),
+  };
+
+  /** @type {keyof typeof this.states} */
+  state = "swimming";
   
   /**
    * 
@@ -13,7 +22,6 @@ export class DolphinSprite extends Sprite {
    * @param {number} y 
    */
   constructor(x, y) {
-
     super({
       id: DOLPHIN_SPRITE_ID,
       imageName: "dolphin-sheet",
@@ -23,11 +31,6 @@ export class DolphinSprite extends Sprite {
       isCollidable: true,
       isMovable: true,
     });
-
-    this.currentFrame = 0;
-
-    this.currentFrameStartTime = 0;
-  
   }
 
   /**
@@ -35,26 +38,11 @@ export class DolphinSprite extends Sprite {
    * @param {Game} game 
    */
   update(game) {
+    const newState = this.states[this.state].update(game, this);
 
-    this.x += this.dx;
-    this.y += this.dy;
-
-    if (game.clock.time - this.currentFrameStartTime > seconds(0.1)) {
-    
-      if (this.currentFrame < 3) {
-
-        this.currentFrame += 1
-
-      } else {
-
-        this.currentFrame = 0;
-
-      }
-
-      this.currentFrameStartTime = game.clock.time;
-
+    if (newState) {
+      this.setState(game, newState);
     }
-
   }
 
   /**
@@ -62,37 +50,7 @@ export class DolphinSprite extends Sprite {
    * @param {Game} game 
    */
   paint(game) {
-
-    const imageSheet = game.assets.getImage(this);
-
-    const { x, y, width, height } = game.camera.transform(
-      this.x,
-      this.y,
-      imageSheet.width / 4,
-      imageSheet.height
-    );
-
-    game.graphics.ctx.drawImage(
-      // the image to draw
-      imageSheet,
-      // the x coordinate of the left-most *part of the image* we want to render (in image coordinates)
-      (imageSheet.width / 4) * this.currentFrame - 1,
-      // the y coordinate of the top-most *part of the image* we want to render (in image coordinates)
-      0,
-      // the width of the area of the *part of the image* we want to render
-      imageSheet.width / 4,
-      // the height of the area of the *part of the image* we want to render
-      imageSheet.height,
-      // the x coordinate in viewport coordinates 
-      x,
-      // the y corrdinate in viewport coordinates
-      y,
-      // the width of the image actually rendered on the screen
-      width,
-      // the height of the image actually rendered on the screen
-      height
-    );
-
+    this.states[this.state].paint(game, this);
   }
 
 }

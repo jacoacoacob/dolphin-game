@@ -3,15 +3,14 @@ import { Scene } from "../lib/scene.js";
 import { DOLPHIN_SPRITE_ID, DolphinSprite } from "./dolphin.sprite.js";
 import { PlayActiveSceneControls } from "./play-active.scene-controls.js";
 import { RockSprite } from "./rock.sprite.js";
+import { SeaFloorSprite } from "./sea-floor.sprite.js";
 
 export class PlayActiveScene extends Scene {
 
   constructor() {
-
     super("play_active");
 
     this.controls = new PlayActiveSceneControls();
-
   }
 
   /**
@@ -22,24 +21,30 @@ export class PlayActiveScene extends Scene {
 
     await Promise.all([
       game.assets.loadImage("dolphin-sheet",  "../assets/dolphin-baby/16bit-dolphin-baby-Sheet.png"),
-      game.assets.loadImage("dolphin-sheet",  "../assets/dolphin-baby/16bit-dolphin-baby-Sheet.png"),
       game.assets.loadImage("rock", "../assets/tiles/tiles-rock.png"),
+      game.assets.loadImage("sand-coral", "../assets/tiles/tiles-sand-coral.png"),
     ]);
 
-    game.sprites.addSprite(new RockSprite(96, 300 / 4));
-    game.sprites.addSprite(new RockSprite(128, 300 / 4));
-    game.sprites.addSprite(new RockSprite(160, 300 / 4));
-    game.sprites.addSprite(new RockSprite(192, 300 / 4));
-    game.sprites.addSprite(new RockSprite(192, 268 / 4));
-    game.sprites.addSprite(new RockSprite(192, 236 / 4));
-    game.sprites.addSprite(new RockSprite(192, 204 / 4));
-    game.sprites.addSprite(new RockSprite(160, 204 / 4));
-    game.sprites.addSprite(new RockSprite(128, 204 / 4));
-    game.sprites.addSprite(new RockSprite(96, 204 / 4));
-    game.sprites.addSprite(new RockSprite(96, 236 / 4));
-    game.sprites.addSprite(new RockSprite(96, 268 / 4));
+    Array.from(Array(50)).forEach((_, index) => {
+      game.sprites.addSprite(new SeaFloorSprite(
+        index * 100,
+        124,
+        100,
+        10
+      ));
+    });
 
-    game.sprites.addSprite(new DolphinSprite(130, 60));
+    game.sprites.addSprite(new RockSprite(210, 90, 10, 40))
+    game.sprites.addSprite(new RockSprite(350, 90, 10, 40))
+    game.sprites.addSprite(new RockSprite(490, 90, 10, 40))
+
+    game.sprites.addSprite(new DolphinSprite(20, 100));
+
+    const SPEED = 0.75;
+
+    game.sprites.select("dolphin").dx = SPEED;
+
+    game.camera.dx = -(SPEED * game.camera.scale);
     
   }
 
@@ -48,45 +53,10 @@ export class PlayActiveScene extends Scene {
    * @param {Game} game 
    */
   update(game) {
-
-
-
-    if (this.controls.moveCameraUp(game)) {
-      game.camera.dy = -0.5 * game.camera.scale;
-    } else if (this.controls.moveCameraDown(game)) {
-      game.camera.dy = 0.5 * game.camera.scale;
-    } else {
-      game.camera.dy = 0;
-    }
-
-    if (this.controls.moveCameraLeft(game)) {
-      game.camera.dx = -0.5 * game.camera.scale;
-    } else if (this.controls.moveCameraRight(game)) {
-      game.camera.dx = 0.5 * game.camera.scale;
-    } else {
-      game.camera.dx = 0;
-    }
-
-
     const dolphin = game.sprites.select(DOLPHIN_SPRITE_ID);
 
-    if (this.controls.moveLeft(game)) {
-      dolphin.dx = 0.5 * game.camera.scale;
-    } else if (this.controls.moveRight(game)) {
-      dolphin.dx = -0.5 * game.camera.scale;
-    } else {
-      dolphin.dx = 0;
-    }
-
-    if (this.controls.moveUp(game)) {
-      dolphin.dy = 0.5 * game.camera.scale;
-    } else if (this.controls.moveDown(game)) {
-      dolphin.dy = -0.5 * game.camera.scale;
-    } else {
-      dolphin.dy = 0;
-    }
-
     dolphin.update(game);
+
     game.camera.update(game);
   }
 
@@ -96,9 +66,7 @@ export class PlayActiveScene extends Scene {
    * @param {Game} game 
    */
   cleanup(game) {
-
     game.sprites.removeSprite(DOLPHIN_SPRITE_ID);
-
   }
 
 }
