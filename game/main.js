@@ -4,6 +4,28 @@ import { PlayActiveScene } from "./play-active.scene.js";
 async function main() {
   
   const game = new Game();
+
+  function onResize() {
+    const maxViewportWidth = 600;
+
+    const screenWidth = window.innerWidth;
+
+    const viewportWidth = game.camera.viewport.width;
+
+    if (screenWidth < viewportWidth + 20) {
+      game.graphics.canvas.width = game.camera.viewport.width = screenWidth - 20;
+    } else if (
+      screenWidth > viewportWidth + 20 &&
+      screenWidth <= maxViewportWidth
+    ) {
+      game.graphics.canvas.width = game.camera.viewport.width = screenWidth - 20;
+    }
+
+  }
+
+  onResize();
+
+  window.addEventListener("resize", onResize);
   
   const playActive = new PlayActiveScene();
 
@@ -15,13 +37,3 @@ async function main() {
 }  
 
 main();
-
-// import { setupGame } from "../monolith.js";
-
-// async function main() {
-//   const game = await setupGame();
-
-//   game.loop();
-// }
-
-// main();

@@ -92,7 +92,7 @@ export class SwimmingState extends SpriteState {
   update(game, dolphin) {
     dolphin.updatePosition();
 
-    if (game.inputs.spacebar.isPressed) {
+    if (game.inputs.spacebar.isPressed || game.inputs.touch.isPressed) {
       return "jumping";
     }
 
