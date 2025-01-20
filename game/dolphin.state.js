@@ -93,13 +93,13 @@ export class SwimmingState extends SpriteState {
       return "jumping";
     }
 
-    if (game.clock.time - this.currentFrameStartTime > secondsToMillis(0.1)) {
+    if (game.clock.currentTime - this.currentFrameStartTime > secondsToMillis(0.1)) {
       if (this.currentFrame < 3) {
         this.currentFrame += 1
       } else {
         this.currentFrame = 0;
       }
-      this.currentFrameStartTime = game.clock.time;
+      this.currentFrameStartTime = game.clock.currentTime;
     }
   }
 
