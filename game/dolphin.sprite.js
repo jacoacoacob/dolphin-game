@@ -50,7 +50,7 @@ export class DolphinSprite extends Sprite {
    * @param {Game} game 
    */
   paint(game) {
-    this.states[this.state].paint(game, this);
+    return this.states[this.state].paint(game, this);
   }
 
 }

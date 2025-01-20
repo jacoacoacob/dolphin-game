@@ -3,6 +3,51 @@ import { SpriteState } from "../lib/sprite-state.js";
 import { secondsToMillis } from "../lib/time.js";
 import { DolphinSprite } from "./dolphin.sprite.js";
 
+class Utils {
+
+  /**
+   * 
+   * @param {Game} game 
+   * @param {DolphinSprite} dolphin 
+   */
+  static paintSwimmingDolphin(game, dolphin) {
+
+    const imageSheet = game.assets.getImage(dolphin);
+
+    const { x, y, width, height } = game.camera.transform(
+      dolphin.x,
+      dolphin.y,
+      imageSheet.width / 4,
+      imageSheet.height
+    );
+
+    game.graphics.ctx.drawImage(
+      // the image to draw
+      imageSheet,
+      // the x coordinate of the left-most *part of the image* we want to render (in image coordinates)
+      (imageSheet.width / 4) * this.currentFrame - 1,
+      // the y coordinate of the top-most *part of the image* we want to render (in image coordinates)
+      0,
+      // the width of the area of the *part of the image* we want to render
+      imageSheet.width / 4,
+      // the height of the area of the *part of the image* we want to render
+      imageSheet.height,
+      // the x coordinate in viewport coordinates 
+      x,
+      // the y corrdinate in viewport coordinates
+      y,
+      // the width of the image actually rendered on the screen
+      width,
+      // the height of the image actually rendered on the screen
+      height
+    );
+  }
+
+  static updateSimmingDolphin(game, dolphin) {
+
+  }
+}
+
 export class JumpingState extends SpriteState {
 
   currentFrame = 0;
@@ -39,50 +84,18 @@ export class JumpingState extends SpriteState {
       return "swimming"
     }
   }
-
-  /**
-   * 
-   * @param {Game} game 
-   * @param {DolphinSprite} dolphin 
-   */
-  paint(game, dolphin) {
-    const imageSheet = game.assets.getImage(dolphin);
-
-    const { x, y, width, height } = game.camera.transform(
-      dolphin.x,
-      dolphin.y,
-      imageSheet.width / 4,
-      imageSheet.height
-    );
-
-    game.graphics.ctx.drawImage(
-      // the image to draw
-      imageSheet,
-      // the x coordinate of the left-most *part of the image* we want to render (in image coordinates)
-      (imageSheet.width / 4) * this.currentFrame - 1,
-      // the y coordinate of the top-most *part of the image* we want to render (in image coordinates)
-      0,
-      // the width of the area of the *part of the image* we want to render
-      imageSheet.width / 4,
-      // the height of the area of the *part of the image* we want to render
-      imageSheet.height,
-      // the x coordinate in viewport coordinates 
-      x,
-      // the y corrdinate in viewport coordinates
-      y,
-      // the width of the image actually rendered on the screen
-      width,
-      // the height of the image actually rendered on the screen
-      height
-    );
-  }
-
 }
 
 export class SwimmingState extends SpriteState {
 
   currentFrame = 0;
   currentFrameStartTime = 0;
+
+  state = "";
+  states = {
+    
+    charging: new ChargingState(),
+  }
 
   /**
    * 
@@ -106,41 +119,19 @@ export class SwimmingState extends SpriteState {
     }
   }
 
+}
+
+
+export class ChargingState extends SpriteState {
+
+  currentFrame
+
   /**
    * 
    * @param {Game} game 
    * @param {DolphinSprite} dolphin 
    */
   paint(game, dolphin) {
-    const imageSheet = game.assets.getImage(dolphin);
-
-    const { x, y, width, height } = game.camera.transform(
-      dolphin.x,
-      dolphin.y,
-      imageSheet.width / 4,
-      imageSheet.height
-    );
-
-    game.graphics.ctx.drawImage(
-      // the image to draw
-      imageSheet,
-      // the x coordinate of the left-most *part of the image* we want to render (in image coordinates)
-      (imageSheet.width / 4) * this.currentFrame - 1,
-      // the y coordinate of the top-most *part of the image* we want to render (in image coordinates)
-      0,
-      // the width of the area of the *part of the image* we want to render
-      imageSheet.width / 4,
-      // the height of the area of the *part of the image* we want to render
-      imageSheet.height,
-      // the x coordinate in viewport coordinates 
-      x,
-      // the y corrdinate in viewport coordinates
-      y,
-      // the width of the image actually rendered on the screen
-      width,
-      // the height of the image actually rendered on the screen
-      height
-    );
+    Utils.paintSwimmingDolphin(game, dolphin);
   }
-
 }

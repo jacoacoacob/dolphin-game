@@ -20,7 +20,6 @@ async function main() {
     ) {
       game.graphics.canvas.width = game.camera.viewport.width = screenWidth - 20;
     }
-
   }
 
   onResize();
