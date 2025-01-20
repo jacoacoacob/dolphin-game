@@ -67,7 +67,7 @@ export class PlayActiveScene extends Scene {
     const dolphin = game.sprites.select(DOLPHIN_SPRITE_ID);
 
     dolphin.update(game);
-
+    
     game.camera.update(game);
   }
 

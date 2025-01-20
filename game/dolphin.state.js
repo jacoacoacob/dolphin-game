@@ -28,15 +28,13 @@ export class JumpingState extends SpriteState {
    * @param {Game} game 
    * @param {DolphinSprite} dolphin 
    */
-  update(game, dolphin) {
-    dolphin.updatePosition();
-
+  update(_game, dolphin) {
     dolphin.dy += 0.05;
 
     if (dolphin.y >= this.startY) {
       dolphin.y = this.startY;
       
-      return "swimming"
+      return "swimming";
     }
   }
 
@@ -89,8 +87,7 @@ export class SwimmingState extends SpriteState {
    * @param {Game} game 
    * @param {DolphinSprite} dolphin 
    */
-  update(game, dolphin) {
-    dolphin.updatePosition();
+  update(game, _dolphin) {
 
     if (game.inputs.spacebar.isPressed || game.inputs.touch.isPressed) {
       return "jumping";
