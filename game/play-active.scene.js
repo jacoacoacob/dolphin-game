@@ -51,7 +51,7 @@ export class PlayActiveScene extends Scene {
 
     game.sprites.addSprite(new DolphinSprite(20, 100));
 
-    const SPEED = 0.85;
+    const SPEED = 2;
 
     game.sprites.select("dolphin").dx = SPEED;
 
@@ -67,7 +67,7 @@ export class PlayActiveScene extends Scene {
     const dolphin = game.sprites.select(DOLPHIN_SPRITE_ID);
 
     dolphin.update(game);
-
+    
     game.camera.update(game);
   }
 

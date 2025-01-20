@@ -38,6 +38,8 @@ export class DolphinSprite extends Sprite {
    * @param {Game} game 
    */
   update(game) {
+    this.updatePosition(game);
+
     const newState = this.states[this.state].update(game, this);
 
     if (newState) {
