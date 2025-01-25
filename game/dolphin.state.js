@@ -28,8 +28,8 @@ export class JumpingState extends SpriteState {
    * @param {Game} game 
    * @param {DolphinSprite} dolphin 
    */
-  update(_game, dolphin) {
-    dolphin.dy += 0.05;
+  update(game, dolphin) {
+    dolphin.dy += game.clock.throttle(0.08);
 
     if (dolphin.y >= this.startY) {
       dolphin.y = this.startY;
