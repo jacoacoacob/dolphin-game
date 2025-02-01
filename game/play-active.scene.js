@@ -5,7 +5,11 @@ import { RockSprite } from "./rock.sprite.js";
 import { SeaFloorSprite } from "./sea-floor.sprite.js";
 import { BackdropSprite } from "./backdrop.sprite.js";
 
-const ROCKS = [0,0,1,0,1,1,1,0,0,1,0,1,1,1,0,2,0,1,2,1,0,1];
+const ROCKS = [
+  0,0,1,0,1,1,1,0,0,1,0,1,1,1,0,2,0,1,2,1,0,1,
+  0,0,1,0,1,1,1,0,0,1,0,1,1,1,0,2,0,1,2,1,0,1,
+  0,0,1,0,1,1,1,0,0,1,0,1,1,1,0,2,0,1,2,1,0,1
+];
   
 export class PlayActiveScene extends Scene {
 
@@ -29,9 +33,9 @@ export class PlayActiveScene extends Scene {
 
     Array.from(Array(ROCKS.length)).forEach((_, index) => {
       game.sprites.addSprite(new SeaFloorSprite(
-        index * 100,
+        index * 140,
         124,
-        100, 
+        140, 
         10
       ));
     });
@@ -39,12 +43,12 @@ export class PlayActiveScene extends Scene {
     ROCKS.forEach((value, index) => {
       
       if (value === 1) {
-        game.sprites.addSprite(new RockSprite(index * 100, 90, 10, 40));
+        game.sprites.addSprite(new RockSprite(index * 140, 90, 10, 40));
       }
 
       if (value === 2) {
-        game.sprites.addSprite(new RockSprite(index * 100, 90, 10, 40));
-        game.sprites.addSprite(new RockSprite(index * 100 + 20, 90, 10, 40));
+        game.sprites.addSprite(new RockSprite(index * 140, 90, 10, 40));
+        game.sprites.addSprite(new RockSprite(index * 140 + 20, 90, 10, 40));
       }
 
     });

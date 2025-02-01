@@ -1,7 +1,7 @@
 import { Game } from "../lib/game.js";
 import { Sprite } from "../lib/sprite.js";
 import { secondsToMillis } from "../lib/time.js";
-import { JumpingState, SwimmingState } from "./dolphin.state.js";
+import { ChargingState, JumpingState, SwimmingState } from "./dolphin.state.js";
 
 export const DOLPHIN_SPRITE_ID = "dolphin";
 
@@ -10,6 +10,7 @@ export class DolphinSprite extends Sprite {
 
   states = {
     swimming: new SwimmingState(),
+    charging: new ChargingState(),
     jumping: new JumpingState(),
   };
 
