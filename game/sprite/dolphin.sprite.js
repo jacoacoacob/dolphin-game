@@ -1,6 +1,5 @@
-import { Game } from "../lib/game.js";
-import { Sprite } from "../lib/sprite.js";
-import { secondsToMillis } from "../lib/time.js";
+import { Game } from "../../lib/game.js";
+import { Sprite } from "../../lib/sprite.js";
 import { ChargingState, JumpingState, SwimmingState } from "./dolphin.state.js";
 
 export const DOLPHIN_SPRITE_ID = "dolphin";

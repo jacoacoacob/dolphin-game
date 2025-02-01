@@ -1,9 +1,6 @@
-import { Game } from "../lib/game.js";
-import { Scene } from "../lib/scene.js";
-import { DOLPHIN_SPRITE_ID, DolphinSprite } from "./dolphin.sprite.js";
-import { RockSprite } from "./rock.sprite.js";
-import { SeaFloorSprite } from "./sea-floor.sprite.js";
-import { BackdropSprite } from "./backdrop.sprite.js";
+import { Game } from "../../lib/game.js";
+import { Scene } from "../../lib/scene.js";
+import { RockSprite, DolphinSprite, SeaFloorSprite, BackdropSprite, DOLPHIN_SPRITE_ID } from "../sprite/index.js";
 
 const ROCKS = [
   0,0,1,0,1,1,1,0,0,1,0,1,1,1,0,2,0,1,2,1,0,1,

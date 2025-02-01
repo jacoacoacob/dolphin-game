@@ -1,5 +1,5 @@
 import { Game } from "../lib/game.js";
-import { PlayActiveScene } from "./play-active.scene.js";
+import { PlayActiveScene } from "./scene/index.js";
 
 async function main() {
   

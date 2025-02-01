@@ -1,6 +1,6 @@
-import { Game } from "../lib/game.js";
-import { SpriteState } from "../lib/sprite-state.js";
-import { secondsToMillis } from "../lib/time.js";
+import { Game } from "../../lib/game.js";
+import { SpriteState } from "../../lib/sprite-state.js";
+import { secondsToMillis } from "../../lib/time.js";
 import { DolphinSprite } from "./dolphin.sprite.js";
 
 /**
