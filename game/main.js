@@ -25,6 +25,11 @@ async function main() {
   onResize();
 
   window.addEventListener("resize", onResize);
+  window.addEventListener("selectstart", (ev) => {
+    // this might fix issues with text selection side effects
+    // of touch events on mobile devices
+    ev.preventDefault();
+  });
   
   const playActive = new PlayActiveScene();
 
