@@ -1,3 +1,4 @@
+import { overlaps } from "../../lib/collision.js";
 import { Game } from "../../lib/game.js";
 import { Scene } from "../../lib/scene.js";
 import { RockSprite, DolphinSprite, SeaFloorSprite, BackdropSprite, DOLPHIN_SPRITE_ID } from "../sprite/index.js";
@@ -25,6 +26,9 @@ export class PlayActiveScene extends Scene {
       game.assets.loadImage("rock", "tiles/tiles-rock.png"),
       game.assets.loadImage("sand-coral", "tiles/tiles-sand-coral.png"),
     ]);
+
+    game.sprites.removeAllSprites();
+    game.camera.originX = 0;
 
     game.sprites.addSprite(new BackdropSprite(game, 300, 100));
 
@@ -54,7 +58,7 @@ export class PlayActiveScene extends Scene {
 
     const SPEED = 1;
 
-    game.sprites.select("dolphin").dx = SPEED;
+    game.sprites.selectById("dolphin").dx = SPEED;
 
     game.camera.dx = -(SPEED * game.camera.scale);
     
@@ -65,11 +69,28 @@ export class PlayActiveScene extends Scene {
    * @param {Game} game 
    */
   update(game) {
-    const dolphin = game.sprites.select(DOLPHIN_SPRITE_ID);
+    /**
+     * @type {DolphinSprite}
+     */
+    const dolphin = game.sprites.selectById(DOLPHIN_SPRITE_ID);
 
     dolphin.update(game);
-    
     game.camera.update(game);
+
+    const rocks = game.sprites.selectByKind("rock");
+
+    const didCollide = rocks.find(
+      (rock) => overlaps(
+        { x: dolphin.x, y: dolphin.y, width: dolphin.width(game) / dolphin.spriteSheet.nFrames, height: dolphin.height(game) },
+        { x: rock.x, y: rock.y, width: rock.width(game), height: rock.height(game) },
+      )
+    );
+
+    if (didCollide) {
+      return "game_over";
+    }
+
+    game.graphics.paint(game);
   }
 
 
@@ -77,8 +98,6 @@ export class PlayActiveScene extends Scene {
    * 
    * @param {Game} game 
    */
-  cleanup(game) {
-    game.sprites.removeSprite(DOLPHIN_SPRITE_ID);
-  }
+  cleanup(game) {}
 
 }

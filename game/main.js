@@ -1,5 +1,5 @@
 import { Game } from "../lib/game.js";
-import { PlayActiveScene } from "./scene/index.js";
+import { GameOverScene, PlayActiveScene } from "./scene/index.js";
 
 async function main() {
   
@@ -32,8 +32,10 @@ async function main() {
   });
   
   const playActive = new PlayActiveScene();
+  const gameOver = new GameOverScene();
 
   game.scenes.addScene(playActive);
+  game.scenes.addScene(gameOver);
   
   await game.setCurrentScene(playActive);
 
