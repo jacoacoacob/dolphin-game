@@ -25,7 +25,12 @@ async function main() {
   onResize();
 
   window.addEventListener("resize", onResize);
-  window.addEventListener("selectstart", (ev) => {
+  window.addEventListener("selectionchange", (ev) => {
+    // this might fix issues with text selection side effects
+    // of touch events on mobile devices
+    ev.preventDefault();
+  });
+  window.addEventListener("select", (ev) => {
     // this might fix issues with text selection side effects
     // of touch events on mobile devices
     ev.preventDefault();

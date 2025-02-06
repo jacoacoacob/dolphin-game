@@ -79,18 +79,26 @@ export class PlayActiveScene extends Scene {
 
     const rocks = game.sprites.selectByKind("rock");
 
+    const dolphinRect = {
+      x: dolphin.x + 2,
+      y: dolphin.y + 6,
+      width: dolphin.width(game) / dolphin.spriteSheet.nFrames - 2,
+      height: dolphin.height(game) - 12,
+    };
+
     const didCollide = rocks.find(
       (rock) => overlaps(
-        { x: dolphin.x, y: dolphin.y, width: dolphin.width(game) / dolphin.spriteSheet.nFrames, height: dolphin.height(game) },
+        dolphinRect,
         { x: rock.x, y: rock.y, width: rock.width(game), height: rock.height(game) },
       )
     );
+
+    game.graphics.paint(game);
 
     if (didCollide) {
       return "game_over";
     }
 
-    game.graphics.paint(game);
   }
 
 
