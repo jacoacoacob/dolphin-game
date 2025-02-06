@@ -1,4 +1,5 @@
 import { Game } from "../../lib/game.js";
+import { SpriteSheet } from "../../lib/sprite-sheet.js";
 import { Sprite } from "../../lib/sprite.js";
 import { ChargingState, JumpingState, SwimmingState } from "./dolphin.state.js";
 
@@ -6,6 +7,8 @@ export const DOLPHIN_SPRITE_ID = "dolphin";
 
 // It's a singleton
 export class DolphinSprite extends Sprite {
+
+  spriteSheet = new SpriteSheet(4, 100);
 
   states = {
     swimming: new SwimmingState(),

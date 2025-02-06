@@ -30,9 +30,9 @@ export class PlayActiveScene extends Scene {
 
     Array.from(Array(ROCKS.length)).forEach((_, index) => {
       game.sprites.addSprite(new SeaFloorSprite(
-        index * 140,
+        index * 100,
         124,
-        140, 
+        100, 
         10
       ));
     });
@@ -40,19 +40,19 @@ export class PlayActiveScene extends Scene {
     ROCKS.forEach((value, index) => {
       
       if (value === 1) {
-        game.sprites.addSprite(new RockSprite(index * 140, 90, 10, 40));
+        game.sprites.addSprite(new RockSprite(index * 100, 90, 10, 40));
       }
 
       if (value === 2) {
-        game.sprites.addSprite(new RockSprite(index * 140, 90, 10, 40));
-        game.sprites.addSprite(new RockSprite(index * 140 + 20, 90, 10, 40));
+        game.sprites.addSprite(new RockSprite(index * 100, 90, 10, 40));
+        game.sprites.addSprite(new RockSprite(index * 100 + 20, 90, 10, 40));
       }
 
     });
 
     game.sprites.addSprite(new DolphinSprite(20, 100));
 
-    const SPEED = 2;
+    const SPEED = 1;
 
     game.sprites.select("dolphin").dx = SPEED;
 
