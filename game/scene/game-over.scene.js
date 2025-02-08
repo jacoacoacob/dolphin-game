@@ -12,15 +12,15 @@ export class GameOverScene extends Scene {
    */
   update(game) {
     console.log("Gameiver update")
-    game.graphics.ctx.fillStyle = "red";
+    game.graphics.ctx.strokeStyle = "blue";
     game.graphics.ctx.font = "20px monospace";
-    game.graphics.ctx.fillText(
+    game.graphics.ctx.strokeText(
       "G A M E  O V E R",
       game.camera.viewport.width / 2 - 100,
       game.camera.viewport.height / 2 - 20,
     );
     game.graphics.ctx.font = "16px monospace";
-    game.graphics.ctx.fillText(
+    game.graphics.ctx.strokeText(
       "tap or press space to start again",
       game.camera.viewport.width / 2 - 170,
       game.camera.viewport.height / 2 + 40,
