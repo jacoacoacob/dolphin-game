@@ -1,5 +1,5 @@
-import { Game } from "../../lib/game.js";
-import { SpriteState } from "../../lib/sprite-state.js";
+import { Game } from "../lib/game.js";
+import { SpriteState } from "../lib/sprite-state.js";
 import { DolphinSprite } from "./dolphin.sprite.js";
 
 export class JumpingState extends SpriteState {

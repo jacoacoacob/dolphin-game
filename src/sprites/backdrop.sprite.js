@@ -1,5 +1,5 @@
-import { Game } from "../../lib/game.js";
-import { Sprite } from "../../lib/sprite.js";
+import { Game } from "../lib/game.js";
+import { Sprite } from "../lib/sprite.js";
 
 export class BackdropSprite extends Sprite {
   

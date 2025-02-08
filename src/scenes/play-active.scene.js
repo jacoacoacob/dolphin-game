@@ -1,7 +1,7 @@
-import { overlaps } from "../../lib/collision.js";
-import { Game } from "../../lib/game.js";
-import { Scene } from "../../lib/scene.js";
-import { RockSprite, DolphinSprite, SeaFloorSprite, BackdropSprite, DOLPHIN_SPRITE_ID } from "../sprite/index.js";
+import { overlaps } from "../lib/collision.js";
+import { Game } from "../lib/game.js";
+import { Scene } from "../lib/scene.js";
+import { RockSprite, DolphinSprite, SeaFloorSprite, BackdropSprite, DOLPHIN_SPRITE_ID } from "../sprites/index.js";
 
 const ROCKS = [
   0,0,1,0,1,1,1,0,0,1,0,1,1,1,0,2,0,1,2,1,0,1,
@@ -22,9 +22,10 @@ export class PlayActiveScene extends Scene {
   async setup(game) {
 
     await Promise.all([
-      game.assets.loadImage("dolphin-sheet",  "dolphin-baby/16bit-dolphin-baby-Sheet.png"),
-      game.assets.loadImage("rock", "tiles/tiles-rock.png"),
-      game.assets.loadImage("sand-coral", "tiles/tiles-sand-coral.png"),
+      game.assets.loadImage("dolphin-sheet", await import("../assets/dolphin-baby/16bit-dolphin-baby-Sheet.png")),
+      game.assets.loadImage("rock", await import("../assets/tiles/tiles-rock.png")),
+      game.assets.loadImage("sand-coral", await import("../assets/tiles/tiles-sand-coral.png")),
+      game.assets.loadImage("fake", "sdlk"),
     ]);
 
     game.sprites.removeAllSprites();

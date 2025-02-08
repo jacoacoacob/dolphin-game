@@ -2,7 +2,7 @@ import { overlaps } from "./collision.js";
 import { Game } from "./game.js";
 import { Sprite } from "./sprite.js";
 
-import { createScaleMatrix, multiplyMatrixAndPoint, createPoint, createOrthographicProjectionMatrix, multiplyMatrices, createTranslationMatrix, isPointVisible } from "../lib/matrix.js";
+import { createScaleMatrix, multiplyMatrixAndPoint, createPoint, createOrthographicProjectionMatrix, multiplyMatrices, createTranslationMatrix, isPointVisible } from "./matrix.js";
 
 
 export class GameCamera {

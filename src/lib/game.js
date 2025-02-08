@@ -1,4 +1,4 @@
-import { GameAssets } from "./game-assets.js";
+import { GameAssets } from "./game-assets";
 import { GameCamera } from "./game-camera.js";
 import { GameClock } from "./game-clock.js";
 import { GameInputs } from "./game-input.js";

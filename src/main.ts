@@ -1,5 +1,5 @@
-import { Game } from "../lib/game.js";
-import { GameOverScene, PlayActiveScene } from "./scene/index.js";
+import { Game } from "./lib/game.js";
+import { GameOverScene, PlayActiveScene } from "./scenes/index.js";
 
 async function main() {
   
@@ -11,14 +11,15 @@ async function main() {
     const screenWidth = window.innerWidth;
 
     const viewportWidth = game.camera.viewport.width;
-
-    if (screenWidth < viewportWidth + 20) {
-      game.graphics.canvas.width = game.camera.viewport.width = screenWidth - 20;
-    } else if (
-      screenWidth > viewportWidth + 20 &&
-      screenWidth <= maxViewportWidth
-    ) {
-      game.graphics.canvas.width = game.camera.viewport.width = screenWidth - 20;
+    if (game.graphics.canvas) {
+      if (screenWidth < viewportWidth + 20) {
+        game.graphics.canvas.width = game.camera.viewport.width = screenWidth - 20;
+      } else if (
+        screenWidth > viewportWidth + 20 &&
+        screenWidth <= maxViewportWidth
+      ) {
+        game.graphics.canvas.width = game.camera.viewport.width = screenWidth - 20;
+      }
     }
   }
 

@@ -1,5 +1,5 @@
-import { Game } from "../../lib/game.js";
-import { Scene } from "../../lib/scene.js";
+import { Game } from "../lib/game.js";
+import { Scene } from "../lib/scene.js";
 
 export class GameOverScene extends Scene {
   constructor() {
