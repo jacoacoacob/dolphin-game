@@ -24,7 +24,7 @@ export class GameSprites {
     return sprites;
   }
 
-  addSprite(sprite: Sprite) {
+  addSprite<S extends Sprite>(sprite: S) {
 
     this.sprites[sprite.id] = sprite;
 

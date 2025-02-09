@@ -58,7 +58,7 @@ export class PlayActiveScene extends Scene {
 
     const SPEED = 1;
 
-    game.sprites.selectById("dolphin").dx = SPEED;
+    game.sprites.selectById(DOLPHIN_SPRITE_ID).dx = SPEED;
 
     game.camera.dx = -(SPEED * game.camera.scale);
     

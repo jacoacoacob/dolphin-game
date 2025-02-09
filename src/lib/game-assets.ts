@@ -6,7 +6,7 @@ export class GameAssets {
   
   images: Record<string, HTMLImageElement> = {};
 
-  getImage(sprite: Sprite) {
+  getImage<S extends Sprite>(sprite: S) {
     return this.images[sprite.imageName ?? ""];
   }
 

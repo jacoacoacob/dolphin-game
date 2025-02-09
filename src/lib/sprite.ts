@@ -1,13 +1,14 @@
 import { randId } from "./rand-id.js";
 import type { SpriteSheet } from "./sprite-sheet.js";
 import type { Game } from "./game.js";
-import type { SpriteState } from "./sprite-state.js";
+import type { SpriteState } from "./types/sprite-state";
+import { isUndefined } from "./utils.js";
 
 interface SpriteOptions {
   /** a unique identifier for the sprite */
-  id: string;
+  id?: string;
   /**  use this to specify a category this sprite belings to (e.g. "star" or "coin") */
-  kind?: string;
+  kind: string;
   /** the name of the image in game.assets.images that represents this sprite */
   imageName?: string;
   /** the sprite's starting x position (in world coordinates) */
@@ -21,19 +22,35 @@ interface SpriteOptions {
   spriteSheet?: SpriteSheet
 }
 
+export interface Sprite {
+  dx: number;
+  dy: number;
+  y: number;
+  x: number;
+  id: string;
+  kind: string;
 
-export class Sprite {
+  state?: string | undefined;
+  states: Record<string, SpriteState<this>> | undefined;
+  spriteSheet?: SpriteSheet;
+  
+  getWidth: (game?: Game) => number;
+  getHeight: (game?: Game) => number;
+}
+
+export class BaseSprite implements Sprite {
 
   dx = 0;
   dy = 0;
   x = 0;
   y = 0;
 
-  state = "";
-  states: Record<string, SpriteState> = {}
-  
   id: string;
-  kind?: string;
+  kind: string;
+
+  state: string | undefined;
+  states: Record<string, SpriteState<this>> | undefined;
+
   imageName?: string;
   spriteSheet?: SpriteSheet;
 
@@ -61,15 +78,17 @@ export class Sprite {
   }
 
   setState(game: Game, newState: string) {
-    const prevState = this.state;
-    
-    this.state = newState;
-
-    if (this.states[prevState]) {
-      this.states[prevState].leave(game, this);
+    if (this.state && this.states) {
+      const prevState = this.state;
+      
+      this.state = newState;
+  
+      if (this.states[prevState]) {
+        this.states[prevState].leave(game, this);
+      }
+  
+      this.states[this.state].enter(game, this);
     }
-
-    this.states[this.state].enter(game, this);
   }
 
   updatePosition(game: Game) {
@@ -77,29 +96,29 @@ export class Sprite {
     this.y += game.clock.throttle(this.dy);
   }
 
-  width(game: Game) {
+  getWidth(game?: Game) {
     if (typeof this._width === "number") {
       return this._width;
     }
 
-    if (game.assets.images[this.imageName ?? ""]) {
+    if (!isUndefined(game) && game.assets.images[this.imageName ?? ""]) {
       return game.assets.images[this.imageName ?? ""].width;
     }
 
-    return 0;
+    throw new Error("Unable to derive width");
   }
 
 
-  height(game: Game) {
+  getHeight(game?: Game) {
     if (typeof this._height === "number") {
       return this._height;
     }
 
-    if (game.assets.images[this.imageName ?? ""]) {
+    if (!isUndefined(game) && game.assets.images[this.imageName ?? ""]) {
       return game.assets.images[this.imageName ?? ""].height;
     }
 
-    return 0;
+    throw new Error("Unable to derive height");
   }
   
   paint(game: Game) {

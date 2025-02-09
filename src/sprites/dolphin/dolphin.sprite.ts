@@ -1,11 +1,11 @@
 import { DOLPHIN_SPRITE_ID } from "../dolphin.sprite.js";
 import type { Game } from "../../lib/game.js";
 import { SpriteSheet } from "../../lib/sprite-sheet.js";
-import { Sprite } from "../../lib/sprite.js";
+import { BaseSprite } from "../../lib/sprite.js";
 import { ChargingState, JumpingState, SwimmingState } from "./dolphin.state.js";
 
 // It's a singleton
-export class DolphinSprite extends Sprite {
+export class DolphinSprite extends BaseSprite {
 
   spriteSheet = new SpriteSheet({ nFrames: 4, refreshRate: 100 });
 
@@ -20,6 +20,7 @@ export class DolphinSprite extends Sprite {
   constructor(x: number, y: number) {
     super({
       id: DOLPHIN_SPRITE_ID,
+      kind: "dolphin",
       imageName: "dolphin-sheet",
       x,
       y,
