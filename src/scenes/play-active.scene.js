@@ -25,7 +25,6 @@ export class PlayActiveScene extends Scene {
       game.assets.loadImage("dolphin-sheet", await import("../assets/dolphin-baby/16bit-dolphin-baby-Sheet.png")),
       game.assets.loadImage("rock", await import("../assets/tiles/tiles-rock.png")),
       game.assets.loadImage("sand-coral", await import("../assets/tiles/tiles-sand-coral.png")),
-      game.assets.loadImage("fake", "sdlk"),
     ]);
 
     game.sprites.removeAllSprites();
