@@ -1,11 +1,13 @@
 import { Sprite } from "./sprite.js";
 
+
+
 export class GameAssets {
   
   images: Record<string, HTMLImageElement> = {};
 
   getImage(sprite: Sprite) {
-    return this.images[sprite.imageName];
+    return this.images[sprite.imageName ?? ""];
   }
 
   async loadImage(name: string, src: { default: string }) {

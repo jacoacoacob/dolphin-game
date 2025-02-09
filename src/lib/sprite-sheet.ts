@@ -1,25 +1,29 @@
 import { Game } from "./game.js";
 import { Sprite } from "./sprite.js";
 
+
+interface SpriteSheetPaintOptions {
+  outline?: boolean;
+}
+
+export interface SpriteSheetOptions {
+  nFrames?: number;
+  refreshRate?: number;
+}
+
 export class SpriteSheet {
   currentFrame = 0;
   currentFrameStartTime = 0;
 
-  /**
-   * 
-   * @param {number} nFrames 
-   * @param {number} refreshRate the duration in milliseconds between each update of currentFrame 
-   */
-  constructor(nFrames = 0, refreshRate = 100) {
+  nFrames = 0;
+  refreshRate = 100;
+
+  constructor({ nFrames = 0, refreshRate = 100 }: SpriteSheetOptions) {
     this.nFrames = nFrames;
     this.refreshRate = refreshRate;
   }
 
-  /**
-   * 
-   * @param {Game} game 
-   */
-  update(game) {
+  update(game: Game) {
     if (this.nFrames < 1) {
       return;
     }
@@ -30,13 +34,7 @@ export class SpriteSheet {
     }
   }
 
-  /**
-   * 
-   * @param {Game} game 
-   * @param {Sprite} sprite 
-   * @param {any} options
-   */  
-  paint(game, sprite, options = {}) {
+  paint(game: Game, sprite: Sprite, options: SpriteSheetPaintOptions = {}) {
     const imageSheet = game.assets.getImage(sprite);
 
     if (imageSheet) {

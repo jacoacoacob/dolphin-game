@@ -1,5 +1,5 @@
 import { overlaps } from "../lib/collision.js";
-import { Game } from "../lib/game.js";
+import type { Game } from "../lib/game.js";
 import { Scene } from "../lib/scene.js";
 import { RockSprite, DolphinSprite, SeaFloorSprite, BackdropSprite, DOLPHIN_SPRITE_ID } from "../sprites/index.js";
 
@@ -19,7 +19,7 @@ export class PlayActiveScene extends Scene {
    * 
    * @param {Game} game 
    */
-  async setup(game) {
+  async setup(game: Game) {
 
     await Promise.all([
       game.assets.loadImage("dolphin-sheet", await import("../assets/dolphin-baby/16bit-dolphin-baby-Sheet.png")),

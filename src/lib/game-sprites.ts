@@ -1,56 +1,30 @@
 import { Sprite } from "./sprite.js";
 
 export class GameSprites {
-  
-  constructor() {
 
-    this.sprites = {};
-    
-    this.spriteIds = [];
+  sprites: Record<string, Sprite> = {};
 
-  }
+  spriteIds: string[] = [];
 
-  /**
-   * 
-   * @param {string} spriteId
-   * @returns {Sprite | undefined}
-   */
-  selectById(spriteId) {
-
+  selectById(spriteId: string): Sprite | undefined {
     return this.sprites[spriteId];
-
   }
 
-  /**
-   * 
-   * @param {string} spriteKind
-   * @returns {Sprite[]}
-   */
-  selectByKind(spriteKind) {
-    
+  selectByKind(spriteKind: string): Sprite[] {
     const sprites = [];
 
     for (let i = 0; i < this.spriteIds.length; i++) {
-
       const sprite = this.sprites[this.spriteIds[i]];
       
       if (sprite && sprite.kind === spriteKind) {
-
         sprites.push(sprite);
-
       }
-
     }
 
     return sprites;
-
   }
 
-  /**
-   * 
-   * @param {Sprite} sprite 
-   */
-  addSprite(sprite) {
+  addSprite(sprite: Sprite) {
 
     this.sprites[sprite.id] = sprite;
 
@@ -58,20 +32,13 @@ export class GameSprites {
 
   }
 
-  /**
-   * 
-   * @param {string} spriteId
-   */
-  removeSprite(spriteId) {
-
+  removeSprite(spriteId: string) {
     delete this.sprites[spriteId];
 
     this.computeSpriteIds();
-
   }
 
   removeAllSprites() {
-    
     Object.keys(this.sprites).forEach((spriteId) => {
     
       delete this.sprites[spriteId];
@@ -79,7 +46,6 @@ export class GameSprites {
     });
 
     this.computeSpriteIds();
-
   }
 
 
@@ -87,9 +53,7 @@ export class GameSprites {
    * Compute an array of sprite IDs for all currently registered sprites
    */
   computeSpriteIds() {
-
     this.spriteIds = Object.keys(this.sprites);
-
   }
 
 }
