@@ -14,32 +14,54 @@ type ComponentFactories<Kind extends KnownComponent["__kind"]> = {
   [K in Kind]: typeof componentFactory;
 }
 
-type EntityParams<Kind extends KnownComponent["__kind"]> = {
-  [K in Kind]: Extract<KnownComponent, { __kind: K }>["data"];
+type EntityParams<ComponentKind extends KnownComponent["__kind"]> = {
+  [K in ComponentKind]: Extract<KnownComponent, { __kind: K }>["data"];
 }
 
-export function createEntity<Kind extends KnownComponent["__kind"]>(
-  components: Kind[],
-  factories: ComponentFactories<Kind>,
+export function createEntityComponents<Kind extends KnownComponent["__kind"]>(
+  componentKinds: Kind[],
+  componentFactories: ComponentFactories<Kind>,
   params: EntityParams<Kind>
 ) {
   return Object.fromEntries(
-    components.map((kind) => [
+    componentKinds.map((kind) => [
       kind,
-      (factories[kind] as (args: unknown) => unknown)(params[kind])
+      (componentFactories[kind] as (args: unknown) => unknown)(params[kind])
     ])
-  ) as Entity<Extract<KnownComponent, { __kind: Kind }>> 
+  ) as { [K in Kind]: Extract<KnownComponent, { __kind: Kind }> }
 }
 
-export function entityFactory<Kind extends KnownComponent["__kind"]>(
-  ...components: Kind[]
-) {
+interface EntityFactoryParams<
+  Kind extends string,
+  ComponentKind extends KnownComponent["__kind"]
+> {
+  kind: Kind;
+  components: ComponentKind[];
+}
+
+export function entityFactory<
+  EntityKind extends string,
+  ComponentKind extends KnownComponent["__kind"]
+>({
+  components,
+  kind,
+}: EntityFactoryParams<EntityKind, ComponentKind>) {
   const factories = Object.fromEntries(
     components.map((kind) => [
       kind,
       componentFactory(kind)
     ])
-  ) as unknown as ComponentFactories<Kind>;
+  ) as unknown as ComponentFactories<ComponentKind>;
 
-  return (params: EntityParams<Kind>) => createEntity(components, factories, params)
+  type Result = Entity<
+    EntityKind,
+    Extract<KnownComponent, { __kind: ComponentKind }>
+  >;
+
+  return (params: EntityParams<ComponentKind>) => ({
+    meta: {
+      __kind: kind,
+    },
+    components: createEntityComponents(components, factories, params)
+  } as unknown as Result)
 }

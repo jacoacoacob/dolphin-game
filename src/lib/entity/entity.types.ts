@@ -3,8 +3,19 @@ export type Component<Kind extends string, Data> = {
   data: Data;
 }
 
-export type Entity<Comp extends Component<string, unknown>> = {
-  [C in Comp as C["__kind"]]: Extract<Comp, { __kind: C["__kind"] }>;
+export type Entity<
+  Kind extends string,
+  Comp extends Component<string, unknown>
+> = {
+  meta: {
+    __kind: Kind;
+  },
+  components: {
+    [C in Comp as C["__kind"]]: Extract<
+      Comp,
+      { __kind: C["__kind"] }
+    >;
+  }
 }
 
 export type Position = Component<"position", {
