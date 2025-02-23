@@ -28,4 +28,9 @@ export type Dimensions = Component<"dimensions", {
   height: number;
 }>;
 
-export type KnownComponent = Position | Dimensions;
+export type Velocity = Component<"velocity", {
+  dx: number;
+  dy: number;
+}>
+
+export type KnownComponent = Position | Dimensions | Velocity;

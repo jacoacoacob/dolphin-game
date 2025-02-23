@@ -2,7 +2,7 @@ import { entityFactory } from "./lib/entity";
 
 const createRect = entityFactory({
   kind: "rect",
-  components: ["dimensions", "position"],
+  components: ["dimensions", "position", "velocity"],
 });
 
 const rect = createRect({
@@ -14,6 +14,16 @@ const rect = createRect({
     x: 2,
     y: 93,
   },
+  velocity: {
+    dx:8,
+    dy:9,
+  }
 });
 
-console.log(JSON.stringify(rect, null, 2));
+
+log(rect);
+
+function log(obj: unknown) {
+  console.log(JSON.stringify(obj, null, 2));
+}
+

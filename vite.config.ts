@@ -1,3 +1,5 @@
+/// <reference types="vitest/config" />
+
 import { defineConfig, loadEnv } from "vite";
 
 const config = defineConfig(({ mode }) => {
@@ -5,6 +7,9 @@ const config = defineConfig(({ mode }) => {
 
   return {
     base: env.BASE_URL,
+    test: {
+
+    }
   }
 });
 
